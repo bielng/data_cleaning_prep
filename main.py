@@ -1,20 +1,27 @@
-# Install dependencies as needed:
-# pip install kagglehub[pandas-datasets]
+# main.py
 import kagglehub
-from kagglehub import KaggleDatasetAdapter
+import os
 
-# Set the path to the file you'd like to load
-file_path = ""
+# Download the dataset (this returns the local folder path)
+handle = "ratnarohith/uncleaned-bike-sales-data"
+path = kagglehub.dataset_download(handle)
 
-# Load the latest version
-df = kagglehub.load_dataset(
-  KaggleDatasetAdapter.PANDAS,
-  "ratnarohith/uncleaned-bike-sales-data",
-  file_path,
-  # Provide any additional arguments like 
-  # sql_query or pandas_kwargs. See the 
-  # documenation for more information:
-  # https://github.com/Kaggle/kagglehub/blob/main/README.md#kaggledatasetadapterpandas
-)
+print("Dataset downloaded to:", path)
 
-print("First 5 records:", df.head())
+# List files inside to see what’s there (very useful first time)
+print("Files in dataset:", os.listdir(path))
+
+# The actual CSV file name in this dataset is "bike_sales_data_uncleaned.csv"
+csv_file = "bike_sales_data_uncleaned.csv"   # correct filename
+csv_path = os.path.join(path, csv_file)
+
+# Load it with pandas
+import pandas as pd
+df = pd.read_csv(csv_path)
+
+print("Shape:", df.shape)
+print("\nFirst 5 records:")
+print(df.head())
+
+# Optional: quick info
+print("\nColumns:", df.columns.tolist())
