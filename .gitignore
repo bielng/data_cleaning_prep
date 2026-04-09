@@ -170,4 +170,4 @@ poetry.toml
 .ruff_cache/
 
 # LSP config files
-pyrightconfig.json
+pyrightconfig.jsonfifa21_profiling_report.html
